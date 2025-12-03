@@ -1,0 +1,5 @@
+{
+  "name": "GeoPix Extractor",
+  "description": "Batch extract coordinates and addresses from photos using Gemini Vision.",
+  "requestFramePermissions": []
+}
