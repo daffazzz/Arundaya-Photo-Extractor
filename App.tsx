@@ -124,7 +124,7 @@ const App: React.FC = () => {
             <div className="p-3 bg-indigo-600 rounded-xl shadow-lg shadow-indigo-200">
                <Zap className="text-white w-8 h-8" />
             </div>
-            <h1 className="text-3xl font-bold text-slate-900 tracking-tight">GeoPix Extractor</h1>
+            <h1 className="text-3xl font-bold text-slate-900 tracking-tight">ARUNDAYA GEOPIX</h1>
           </div>
           <p className="text-lg text-slate-600 max-w-2xl mx-auto">
             Queue your photos below, then process them in batches to extract GPS coordinates, addresses, dates, and times.
