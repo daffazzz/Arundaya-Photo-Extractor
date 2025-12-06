@@ -3,14 +3,15 @@ import react from '@vitejs/plugin-react';
 
 export default defineConfig(({ mode }) => {
   // Load env file based on `mode` in the current working directory.
-  const env = loadEnv(mode, '.', '');
+  // The third argument '' loads all env vars regardless of prefix.
+  const env = loadEnv(mode, (process as any).cwd(), '');
   
   return {
     plugins: [react()],
     define: {
-      // This injects the API key from Vercel environment variables into the code
-      'process.env.API_KEY': JSON.stringify(env.API_KEY),
-      // Polyfill process.env to prevent crashes if other env vars are accessed
+      // Prioritize the key from env files, fallback to process.env for Vercel system vars
+      'process.env.API_KEY': JSON.stringify(env.API_KEY || process.env.API_KEY),
+      // Polyfill process.env for libs that might expect it, but empty to avoid leaking secrets
       'process.env': {} 
     }
   };
