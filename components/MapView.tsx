@@ -53,16 +53,18 @@ export const MapView: React.FC<MapViewProps> = ({ data }) => {
   const createCustomIcon = (previewUrl: string) => {
     return new L.DivIcon({
       html: `
-        <div class="relative group">
-          <div class="w-12 h-12 rounded-md border-2 border-white shadow-lg overflow-hidden bg-white transform transition-transform hover:scale-110">
-            <img src="${previewUrl}" class="w-full h-full object-cover" />
+        <div class="flex flex-col items-center justify-center w-full h-full">
+          <div class="w-12 h-12 rounded-md border-2 border-white shadow-lg overflow-hidden bg-white z-10 box-border relative">
+            <img src="${previewUrl}" class="w-full h-full object-cover block" />
           </div>
-          <div class="absolute -bottom-1 left-1/2 transform -translate-x-1/2 w-0 h-0 border-l-[6px] border-l-transparent border-r-[6px] border-r-transparent border-t-[8px] border-t-white drop-shadow-sm"></div>
+          <div class="-mt-[1px] w-0 h-0 border-l-[6px] border-l-transparent border-r-[6px] border-r-transparent border-t-[8px] border-t-white drop-shadow-sm z-0 relative"></div>
         </div>
       `,
-      className: 'custom-marker-icon', // Remove default leaflet styles
-      iconSize: [48, 48],
-      iconAnchor: [24, 54], // Center horizontally, bottom tip vertically
+      className: '!bg-transparent !border-0', 
+      // Increased size to prevent any overflow clipping (shadows, borders)
+      iconSize: [60, 70], 
+      // Centered horizontally (30), positioned so arrow tip is at the lat/lng (approx 62px down)
+      iconAnchor: [30, 62], 
       popupAnchor: [0, -60]
     });
   };
@@ -113,14 +115,18 @@ export const MapView: React.FC<MapViewProps> = ({ data }) => {
               icon={createCustomIcon(item.previewUrl)}
             >
               <Popup className="custom-popup">
-                <div className="flex flex-col gap-2 min-w-[200px]">
-                  <div className="w-full h-32 rounded-lg overflow-hidden bg-slate-100">
-                    <img src={item.previewUrl} alt={item.fileName} className="w-full h-full object-cover" />
+                <div className="flex flex-col gap-2 min-w-[220px] max-w-[280px]">
+                  <div className="w-full rounded-lg overflow-hidden bg-slate-100 border border-slate-200">
+                    <img 
+                      src={item.previewUrl} 
+                      alt={item.fileName} 
+                      className="w-full h-auto max-h-[250px] object-contain block" 
+                    />
                   </div>
                   <div>
                     <h4 className="font-semibold text-slate-800 text-sm truncate">{item.fileName}</h4>
-                    <p className="text-xs text-slate-600 line-clamp-2 mt-1">{item.address}</p>
-                    <div className="flex gap-2 mt-2 text-[10px] text-slate-400 font-mono">
+                    <p className="text-xs text-slate-600 line-clamp-3 mt-1 leading-relaxed">{item.address}</p>
+                    <div className="flex gap-2 mt-2 text-[10px] text-slate-400 font-mono border-t border-slate-100 pt-1">
                       <span>{item.latitude?.toFixed(5)}</span>
                       <span>{item.longitude?.toFixed(5)}</span>
                     </div>
