@@ -1,6 +1,7 @@
 import React, { useState, useCallback } from 'react';
 import { Dropzone } from './components/Dropzone';
 import { ResultsTable } from './components/ResultsTable';
+import { MapView } from './components/MapView';
 import { ProcessedImage, ProcessingStatus } from './types';
 import { processImageBatch } from './services/geminiService';
 import { Loader2, Trash2, Zap, Play, X, Image as ImageIcon } from 'lucide-react';
@@ -212,7 +213,7 @@ const App: React.FC = () => {
 
         {/* Results Area */}
         {results.length > 0 && (
-          <div className="space-y-4 animate-in fade-in slide-in-from-bottom-4 duration-500">
+          <div className="space-y-6 animate-in fade-in slide-in-from-bottom-4 duration-500">
             <div className="flex items-center justify-between px-2">
               <h2 className="text-xl font-semibold text-slate-800 flex items-center gap-2">
                 Results <span className="text-sm font-normal text-slate-500 bg-slate-100 px-2 py-0.5 rounded-full">{results.length}</span>
@@ -227,6 +228,7 @@ const App: React.FC = () => {
             </div>
             
             <ResultsTable data={results} />
+            <MapView data={results} />
           </div>
         )}
 
